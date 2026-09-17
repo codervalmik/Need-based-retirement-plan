@@ -10,7 +10,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
 :root{
-  --bg:#f5f7fb;--card:#fff;--text:#172033;--muted:#667085;--line:#e5e7eb;
+  --bg:#f5f7fb;--card:#fff;--text:#172033;--muted:#48505c;--line:#e5e7eb;
   --primary:#0f766e;--primary2:#115e59;--soft:#ecfdf5;--warn:#b45309;--warnbg:#fff7ed;
   --danger:#b91c1c;--dangerbg:#fef2f2;--success:#047857;--successbg:#ecfdf5;
   --shadow:0 8px 24px rgba(15,23,42,.06);--radius:16px
@@ -25,8 +25,8 @@ body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sa
 .header-logo {display: flex; align-items: center; gap: 14px;}
 .logo-icon {width: 52px; height: 52px; object-fit: contain; border-radius: 8px; flex-shrink: 0;}
 .advisor-info .name {font-size: 22px; font-weight: 700; color: var(--primary2); letter-spacing: -0.02em;}
-.advisor-info .subtitle {font-size: 13px; font-weight: 600; color: #475467; margin: 4px 0;}
-.advisor-info .tagline {font-size: 13px; font-style: italic; color: #374151;}
+.advisor-info .subtitle {font-size: 16px; font-weight: 600; color: #475467; margin: 4px 0;}
+.advisor-info .tagline {font-size: 14px; font-style: italic; color: #374151;}
 .contact-info {text-align: right; font-size: 13px; color: #475467; line-height: 1.5;}
 .contact-info b {color: #172033;}
 .contact-info a {color: inherit; text-decoration: none;}
@@ -76,11 +76,11 @@ table tbody tr:hover{background:#eaf6f3}
 
 /* --- FOOTER BANNER CSS --- */
 .delay-warning-box {background: #fffbeb; border: 1px dashed #f59e0b; border-radius: 12px; padding: 18px; margin-top: 24px; box-shadow: var(--shadow);}
-.delay-warning-box h3 {color: #b45309; margin: 0 0 10px 0; font-size: 16px; display: flex; align-items: center; gap: 8px;}
+.delay-warning-box h3 {color: #92400e; margin: 0 0 10px 0; font-size: 16px; display: flex; align-items: center; gap: 8px;}
 .delay-warning-box p {margin: 0 0 6px 0; font-size: 14px; color: #451a03; line-height: 1.5;}
 .delay-warning-box .highlight-loss {font-weight: 700; color: #dc2626;}
-.delay-warning-box .action-text {margin-top: 10px; font-weight: 700; color: #78350f; font-size: 15px;}
-.delay-warning-box .action-text a {color: #78350f; text-decoration: underline;}
+.delay-warning-box .action-text {margin-top: 10px; font-weight: 700; color: #4a1d0a; font-size: 15px;}
+.delay-warning-box .action-text a {color: #4a1d0a; text-decoration: underline;}
 
 .action-buttons-row {display: flex; gap: 12px; margin-top: 20px; flex-wrap: wrap;}
 .btn-action {flex: 1; min-width: 200px; padding: 14px; border: none; border-radius: 8px; font-weight: 700; font-size: 15px; cursor: pointer; color: #fff; transition: 0.2s; text-align: center; display: flex; justify-content: center; align-items: center; gap: 8px;}
@@ -95,12 +95,19 @@ table tbody tr:hover{background:#eaf6f3}
 .consultation-cta .contact-links {font-size: 16px; font-weight: 700; color: #047857;}
 .consultation-cta .contact-links a {color: #047857; text-decoration: underline;}
 
-.disclaimer-section {margin-top: 30px; border-top: 2px solid var(--line); padding-top: 20px; font-size: 11px; color: #64748b; line-height: 1.6;}
-.disclaimer-section h4 {margin: 0 0 8px 0; color: #475569;}
+.disclaimer-section {margin-top: 30px; border-top: 2px solid var(--line); padding-top: 20px; font-size: 11px; color: #475569; line-height: 1.6;}
+.disclaimer-section h4 {margin: 0 0 8px 0; color: #334155;}
 .disclaimer-section ol {margin: 0; padding-left: 16px;}
 
 .section-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:14px}
 .pill{font-size:12px;padding:6px 9px;border-radius:999px;background:#eef8f6;color:var(--primary);font-weight:700}
+.assumptions-box{background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:14px}
+.assumptions-title{font-size:13px;font-weight:700;color:#475467;margin-bottom:10px}
+.assumptions-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.assumptions-grid div{display:flex;flex-direction:column;gap:4px}
+.assumptions-grid span{font-size:12px;color:#475467}
+.assumptions-grid b{font-size:16px;color:var(--primary2)}
+@media(max-width:560px){.assumptions-grid{grid-template-columns:repeat(2,1fr)}}
 .small-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.simple-assumptions{grid-template-columns:repeat(3,1fr)}
 
 @media(max-width:900px){
@@ -254,6 +261,25 @@ table tbody tr:hover{background:#eaf6f3}
   </header>
 
   <div class="grid">
+    <section class="card" id="execSummaryCard" style="border:2px solid var(--primary2);background:linear-gradient(180deg,#f6fdfb,#ffffff);">
+      <div class="section-head"><div><h2>📋 थोडक्यात सारांश (Executive Summary)</h2><div class="sub">पुढे सविस्तर आकडेवारी आहे.</div></div></div>
+      <div class="kpis">
+        <div class="kpi"><div class="label">Required Retirement Corpus</div><div class="value" id="sumRequired">₹0</div><small>निवृत्तीसाठी लागणारी अंदाजे रक्कम</small></div>
+        <div class="kpi highlight"><div class="label">निवडलेला Monthly SIP</div><div class="value" id="sumSIP">₹0</div><small id="sumSIPPlan">Plan</small></div>
+        <div class="kpi"><div class="label">Projected Corpus</div><div class="value" id="sumProjected">₹0</div><small>सध्याच्या SIP नुसार अंदाजे जमा होणारी रक्कम</small></div>
+      </div>
+      <div id="sumStatus" class="status neutral" style="margin-top:14px;">Calculating...</div>
+      <div class="assumptions-box" style="margin-top:16px;">
+        <div class="assumptions-title">🔍 गृहीतके (Key Assumptions)</div>
+        <div class="assumptions-grid">
+          <div><span>महागाई दर</span><b id="sumInflation">6%</b></div>
+          <div><span>Return — Retirement आधी</span><b id="sumPreReturn">12%</b></div>
+          <div><span>Return — Retirement नंतर</span><b id="sumPostReturn">10%</b></div>
+          <div><span>Withdrawal Rate</span><b id="sumWithdrawRate">6%</b></div>
+        </div>
+      </div>
+    </section>
+
     <section class="card">
       <div class="section-head"><div><h2>1. Basic Profile</h2><div class="sub">मुख्य inputs बदला आणि सर्व calculation लगेच update होईल.</div></div></div>
       <div class="inputs">
@@ -274,7 +300,7 @@ table tbody tr:hover{background:#eaf6f3}
       <div class="inputs simple-assumptions">
         <div class="field"><label>आजचा मासिक खर्च</label><input id="expense" type="number" min="0" step="100" value="20000"></div>
         <div class="field"><label>Retirement आधी अपेक्षित Return (%)</label><input id="preReturn" type="number" min="0" max="30" step="0.1" value="12"></div>
-        <div class="field"><label>Retirement नंतर अपेक्षित Return (%)</label><input id="postReturn" type="number" min="0" max="30" step="0.1" value="8"></div>
+        <div class="field"><label>Retirement नंतर अपेक्षित Return (%)</label><input id="postReturn" type="number" min="0" max="30" step="0.1" value="10"></div>
       </div>
     </section>
     
@@ -341,7 +367,7 @@ table tbody tr:hover{background:#eaf6f3}
       <div class="section-head"><div><h2>7. Retirement नंतरची Monthly Income (SWP)</h2></div><span class="pill">Default: 6% Withdrawal</span></div>
       <div class="inputs">
         <div class="field"><label>Withdrawal पद्धत</label>
-          <select id="withdrawMode"><option value="percent" selected>Corpus च्या % प्रमाणे</option><option value="fixed">Fixed Monthly SWP</option></select>
+          <select id="withdrawMode"><option value="percent">Corpus च्या % प्रमाणे</option><option value="fixed" selected>Fixed Monthly SWP</option></select>
         </div>
         <div class="field"><label>वार्षिक Withdrawal Rate (%)</label><input id="withdrawRate" type="number" min="0.1" max="30" step="0.1" value="6"></div>
         <div class="field"><label>पहिल्या वर्षाचं Monthly SWP</label><input id="swp" type="number" min="0" step="100" value="0"></div>
@@ -389,8 +415,7 @@ table tbody tr:hover{background:#eaf6f3}
   <div class="share-note no-print">बटणावर क्लिक केल्यावर PDF जनरेट होईल. मोबाईलवर थेट WhatsApp वर फाईल शेअर करता येईल.</div>
 
   <div class="consultation-cta">
-    <p>कॅल्क्युलेटरने तुम्हाला फक्त आवश्यक आकडेवारी दाखवली आहे. पण हा प्लॅन प्रत्यक्षात कसा राबवायचा, योग्य म्युच्युअल फंड योजना कशा निवडायच्या आणि पोर्टफोलिओचं स्ट्रक्चर कसे असावे?</p>
-    <p>हे सविस्तर समजून घेण्यासाठी व तुमच्या सर्व शंकांचे निरसन करण्यासाठी आजच मोफत संपर्क साधा:</p>
+    <p>कॅल्क्युलेटरने केवळ आकडे दाखवले आहेत, पण खरी संपत्ती ही अचूक अंमलबजावणी आणि सातत्याने बनते. तुमची उद्दिष्टे व जोखीम क्षमतेनुसार महागाईवर मात करणारा संतुलित पोर्टफोलिओ तयार करणे असो, बाजारातील पडझड किंवा वैयक्तिक अडचणींच्या वेळी योग्य आर्थिक निर्णय घेणे असो, अथवा बदलत्या गरजांनुसार दरवर्षी या प्लॅनचा रिव्ह्यू करणे असो—या संपूर्ण प्रवासात मी स्वतः तुमच्यासोबत असेन. तुमच्या उद्दिष्टांचा प्रत्यक्ष कृती आराखडा तयार करण्यासाठी आजच माझ्याशी चर्चा करा:</p>
     <div class="contact-links"><a href="https://wa.me/918087126804?text=%E0%A4%AE%E0%A5%80%20%E0%A4%B0%E0%A4%BF%E0%A4%9F%E0%A4%BE%E0%A4%AF%E0%A4%B0%E0%A4%AE%E0%A5%87%E0%A4%82%E0%A4%9F%20%E0%A4%AA%E0%A5%8D%E0%A4%B2%E0%A5%85%E0%A4%A8%20%E0%A4%B8%E0%A4%BE%E0%A4%A0%E0%A5%80%20%E0%A4%A4%E0%A4%AF%E0%A4%BE%E0%A4%B0%20%E0%A4%86%E0%A4%B9%E0%A5%87." target="_blank" rel="noopener">💬 WhatsApp मेसेज करा</a> | <a href="tel:+918087126804">📞 कॉल करा: 8087126804</a></div>
   </div>
 
@@ -545,6 +570,7 @@ function recalc(){
   
   const target = requiredCorpus(retExpense, infl, postR, retYears, withdrawalRate) || 0;
   $('kpiRequired').textContent=money(target);
+  $('sumRequired').textContent=money(target);
 
   const normal=findRequiredSIP(target,'normal',0,years,preR);
   const dynamicFixedStep = Math.max(500, Math.ceil((normal * 0.10) / 500) * 500);
@@ -577,15 +603,24 @@ function recalc(){
   $('preInvested').textContent=money(pre.total); $('preGain').textContent=money(Math.max(0,pre.bal-pre.total));
   $('preTotal').textContent=money(projectedTotal); $('readyProjected').textContent=money(projectedTotal);
   $('readyTarget').textContent=money(target);
+  $('sumProjected').textContent=money(projectedTotal);
+  $('sumSIP').textContent=fullMoney(start)+'/month';
+  $('sumSIPPlan').textContent=selectedOption==='normal'?'Normal SIP':selectedOption==='pct'?'Step-Up SIP':'Fixed Amount Step-Up';
   
   const coverage=target? (projectedTotal/target*100) : 0; 
   const displayCoverage = Math.round(coverage);
   $('readyPct').textContent=displayCoverage + '%';
   
   const rs=$('readinessStatus');
-  if(displayCoverage>=100){rs.className='status good';rs.textContent='🟢 Goal currently covered.'}
-  else if(displayCoverage>=80){rs.className='status neutral';rs.textContent='🟡 Close to target — SIP may need adjustment.'}
-  else {rs.className='status bad';rs.textContent='🔴 Projected corpus is below target.'}
+  const sumSt=$('sumStatus');
+  if(displayCoverage>=100){rs.className='status good';rs.textContent='🟢 Goal currently covered.'; sumSt.className='status good'; sumSt.textContent='🟢 सध्याच्या SIP नुसार तुम्ही तुमच्या ध्येयाकडे व्यवस्थित वाटचाल करत आहात.';}
+  else if(displayCoverage>=80){rs.className='status neutral';rs.textContent='🟡 Close to target — SIP may need adjustment.'; sumSt.className='status neutral'; sumSt.textContent='🟡 तुम्ही ध्येयाच्या जवळ आहात — SIP मध्ये थोडा बदल केल्यास ध्येय पूर्ण होईल.';}
+  else {rs.className='status bad';rs.textContent='🔴 Projected corpus is below target.'; sumSt.className='status bad'; sumSt.textContent='🔴 सध्याचा SIP ध्येयासाठी पुरेसा नाही — SIP वाढवण्याची गरज आहे.';}
+
+  $('sumInflation').textContent=num('inflation')+'%';
+  $('sumPreReturn').textContent=num('preReturn')+'%';
+  $('sumPostReturn').textContent=num('postReturn')+'%';
+  $('sumWithdrawRate').textContent=num('withdrawRate')+'%';
 
   $('selectedBadge').textContent=selectedOption==='normal'?'Normal SIP':selectedOption==='pct'?'Step-Up SIP':'Fixed Amount Step-Up';
   
